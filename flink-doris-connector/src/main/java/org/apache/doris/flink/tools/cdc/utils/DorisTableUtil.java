@@ -62,6 +62,7 @@ public class DorisTableUtil {
                 schema.primaryKeys = new ArrayList<>(schema.uniqueIndexs);
             }
 
+            // suyh - 生成要创建的doris 的表信息
             TableSchema dorisSchema =
                     DorisSchemaFactory.createTableSchema(
                             targetDb,

@@ -20,6 +20,7 @@ package org.apache.doris.flink.tools.cdc;
 import org.apache.flink.annotation.VisibleForTesting;
 import org.apache.flink.api.java.utils.MultipleParameterTool;
 import org.apache.flink.configuration.Configuration;
+import org.apache.flink.configuration.RestOptions;
 import org.apache.flink.core.execution.JobClient;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Preconditions;
@@ -154,6 +155,13 @@ public class CdcTools {
                 Objects.nonNull(flinkEnvironmentForTesting)
                         ? flinkEnvironmentForTesting
                         : StreamExecutionEnvironment.getExecutionEnvironment();
+        if (true) {
+            // suyh - 本地测试
+            Configuration configuration = new Configuration();
+            configuration.set(RestOptions.BIND_PORT, "8082");
+            configuration.setString("pipeline.operator-chaining.enabled", "false");
+            env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+        }
         databaseSync
                 .setEnv(env)
                 .setDatabase(database)
