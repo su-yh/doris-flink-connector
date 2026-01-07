@@ -51,12 +51,16 @@ public class ParsingProcessFunction extends ProcessFunction<String, Void> {
     public void processElement(
             String record, ProcessFunction<String, Void>.Context context, Collector<Void> collector)
             throws Exception {
+        // suyh
+        // System.out.println("record: " + record);
         String tableName = getRecordTableName(record);
         String dorisTableName = converter.convert(tableName);
         String dorisDbName = database;
         if (StringUtils.isNullOrWhitespaceOnly(database)) {
             dorisDbName = getRecordDatabaseName(record);
         }
+        // System.out.println("dorisDbName: " + dorisDbName + ", dorisTableName: " + dorisTableName); // suyh
+        // System.out.println("getRecordOutputTag(dorisDbName, dorisTableName): " + getRecordOutputTag(dorisDbName, dorisTableName)); // suyh
         context.output(getRecordOutputTag(dorisDbName, dorisTableName), record);
     }
 

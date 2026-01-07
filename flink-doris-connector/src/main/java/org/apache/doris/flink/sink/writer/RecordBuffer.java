@@ -82,6 +82,7 @@ public class RecordBuffer {
         }
     }
 
+    private static int c = 0;
     public void write(byte[] buf) throws InterruptedException {
         int wPos = 0;
         do {
@@ -92,7 +93,10 @@ public class RecordBuffer {
             int nWrite = Math.min(available, buf.length - wPos);
             currentWriteBuffer.put(buf, wPos, nWrite);
             wPos += nWrite;
+            // suyh
+            c += nWrite;
             if (currentWriteBuffer.remaining() == 0) {
+                // System.out.println("suyh - write: true, c: " + c);
                 currentWriteBuffer.flip();
                 readQueue.put(currentWriteBuffer);
                 currentWriteBuffer = null;

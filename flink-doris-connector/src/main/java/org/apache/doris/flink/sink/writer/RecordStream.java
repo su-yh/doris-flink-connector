@@ -52,6 +52,12 @@ public class RecordStream extends InputStream {
     @Override
     public int read(byte[] buff) throws IOException {
         try {
+            if (false) {
+                // suyh
+                int len = recordBuffer.read(buff);
+                System.out.println("suyh - read len: " + len + ", buff: " + new String(buff));
+                return len;
+            }
             return recordBuffer.read(buff);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -61,6 +67,9 @@ public class RecordStream extends InputStream {
 
     public void write(byte[] buff) throws InterruptedException {
         try {
+            if (false) {
+                System.out.println("suyh - write: " + new String(buff));
+            }
             recordBuffer.write(buff);
         } catch (InterruptedException e) {
             throw e;

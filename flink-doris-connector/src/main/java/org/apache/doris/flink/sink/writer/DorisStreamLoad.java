@@ -37,6 +37,7 @@ import org.apache.doris.flink.sink.LoadStatus;
 import org.apache.doris.flink.sink.ResponseUtil;
 import org.apache.http.client.entity.GzipCompressingEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -261,6 +262,7 @@ public class DorisStreamLoad implements Serializable {
     public void writeRecord(byte[] record) throws InterruptedException {
         checkLoadException();
         try {
+            // suyh - 后续！！
             if (loadBatchFirstRecord) {
                 loadBatchFirstRecord = false;
             } else if (lineDelimiter != null) {
@@ -416,6 +418,7 @@ public class DorisStreamLoad implements Serializable {
                                             throw new DorisRuntimeException(errMsg);
                                         }
                                     }
+                                    // System.out.println("线程结束了。");  // suyh
                                     return respContent;
                                 } catch (NoRouteToHostException nex) {
                                     LOG.error("Failed to connect, cause ", nex);

@@ -22,6 +22,8 @@ import org.apache.flink.api.java.utils.MultipleParameterTool;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
 import org.apache.flink.core.execution.JobClient;
+import org.apache.flink.streaming.api.CheckpointingMode;
+import org.apache.flink.streaming.api.environment.CheckpointConfig;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.util.Preconditions;
 import org.apache.flink.util.StringUtils;
@@ -156,11 +158,15 @@ public class CdcTools {
                         ? flinkEnvironmentForTesting
                         : StreamExecutionEnvironment.getExecutionEnvironment();
         if (true) {
-            // suyh - 本地测试
+            // suyh - 本地测试 使用 WebUI
             Configuration configuration = new Configuration();
             configuration.set(RestOptions.BIND_PORT, "8082");
             configuration.setString("pipeline.operator-chaining.enabled", "false");
+            configuration.setString("parallelism.default", "1");
             env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+
+            // 1. 开启周期性Checkpoint，间隔30秒（本地调试可缩短，如5秒=5000ms）
+            env.enableCheckpointing(30000);
         }
         databaseSync
                 .setEnv(env)
