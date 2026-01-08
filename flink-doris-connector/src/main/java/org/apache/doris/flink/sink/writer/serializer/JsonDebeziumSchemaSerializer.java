@@ -187,6 +187,7 @@ public class JsonDebeziumSchemaSerializer implements DorisRecordSerializer<Strin
         JsonNode recordRoot = objectMapper.readValue(record, JsonNode.class);
         String op = extractJsonNode(recordRoot, "op");
         if (Objects.isNull(op)) {
+            System.out.println("received debezium json data, record: " + record);   // suyh - DDL 操作
             // schema change ddl
             schemaChange.schemaChange(recordRoot);
             return null;

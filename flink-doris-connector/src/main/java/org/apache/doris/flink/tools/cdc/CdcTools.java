@@ -166,7 +166,7 @@ public class CdcTools {
             env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
 
             // 1. 开启周期性Checkpoint，间隔30秒（本地调试可缩短，如5秒=5000ms）
-            env.enableCheckpointing(30000);
+            env.enableCheckpointing(3000);
         }
         databaseSync
                 .setEnv(env)

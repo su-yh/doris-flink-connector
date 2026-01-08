@@ -64,6 +64,7 @@ public class SQLParserSchemaChange extends JsonDebeziumSchemaChange {
 
     @Override
     public boolean schemaChange(JsonNode recordRoot) {
+        System.out.println("suyh - schemaChange: " + recordRoot);   // suyh
         boolean status = false;
         try {
             if (!StringUtils.isNullOrWhitespaceOnly(sourceTableName) && !checkTable(recordRoot)) {

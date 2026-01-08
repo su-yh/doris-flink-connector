@@ -169,7 +169,7 @@ public class DorisWriter<IN>
 
     @Override
     public void write(IN in, Context context) throws IOException, InterruptedException {
-        // System.out.println("DorisSink 待写入原始数据：" + in); // suyh
+        System.out.println("DorisSink 待写入原始数据：" + in); // suyh
         checkLoadException();
         writeOneDorisRecord(serializer.serialize(in));
     }
@@ -184,7 +184,6 @@ public class DorisWriter<IN>
             // ddl or value is null
             return;
         }
-        // System.out.println("序列化后的数据, database: " + record.getDatabase() + ", table: " + record.getTable()); // suyh
 
         // multi table load
         String tableKey = dorisOptions.getTableIdentifier();
@@ -203,6 +202,7 @@ public class DorisWriter<IN>
             registerMetrics(tableKey);
         }
         // System.out.println("序列化后的数据，len: " + record.getRow().length); // suyh
+        // System.out.println("suyh - 序列化后的数据, database: " + record.getDatabase() + ", table: " + record.getTable() + ", row: " + new String(record.getRow())); // suyh
         streamLoader.writeRecord(record.getRow());
     }
 
