@@ -169,7 +169,7 @@ public class DorisWriter<IN>
 
     @Override
     public void write(IN in, Context context) throws IOException, InterruptedException {
-        System.out.println("DorisSink 待写入原始数据：" + in); // suyh
+        // System.out.println("DorisSink 待写入原始数据：" + in); // suyh
         checkLoadException();
         writeOneDorisRecord(serializer.serialize(in));
     }

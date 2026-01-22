@@ -168,7 +168,7 @@ public abstract class DatabaseSync {
         config.setString(TABLE_NAME_OPTIONS, getSyncTableList(syncTables));
         DataStreamSource<String> streamSource = buildCdcSource(env);
         if (singleSink) {
-            streamSource.sinkTo(buildDorisSink());
+            streamSource.sinkTo(buildDorisSink(null));
         } else {
             SingleOutputStreamOperator<Void> parsedStream =
                     streamSource.process(buildProcessFunction());
@@ -228,10 +228,10 @@ public abstract class DatabaseSync {
         return builder.build();
     }
 
-    /** create doris sink for multi table. */
-    public DorisSink<String> buildDorisSink() {
-        return buildDorisSink(null);
-    }
+    // /** create doris sink for multi table. */
+    // public DorisSink<String> buildDorisSink() {
+    //     return buildDorisSink(null);
+    // }
 
     public ParsingProcessFunction buildProcessFunction() {
         return new ParsingProcessFunction(database, converter);
