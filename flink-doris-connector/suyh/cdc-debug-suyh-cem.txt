@@ -1,0 +1,17 @@
+mysql-sync-database
+--database suyh_cem_doris_debug
+--table-prefix cem_
+--mysql-conf hostname=192.168.8.10
+--mysql-conf port=3308
+--mysql-conf username=repl_suyh_cem
+--mysql-conf password=repl_suyh_cem
+--mysql-conf database-name=suyh_cem
+--mysql-conf server-time-zone=UTC
+--sink-conf fenodes=192.168.8.237:8030
+--sink-conf username=root
+--sink-conf password=doris@2023
+--sink-conf jdbc-url=jdbc:mysql://192.168.8.237:9030
+--sink-conf sink.label-prefix=label_suyh_cem_doris_debug
+--table-conf replication_num=1
+--schema-change-mode sql_parser
+

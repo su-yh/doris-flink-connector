@@ -1,0 +1,15 @@
+mysql-sync-database
+--database suyh_cdap_doris_debug
+--mysql-conf hostname=192.168.8.38
+--mysql-conf port=3306
+--mysql-conf username=suyh_repl
+--mysql-conf password=suyh_repl
+--mysql-conf database-name=suyh_cdap_cds
+--mysql-conf server-time-zone=UTC
+--including-tables "tb_recharge"
+--sink-conf fenodes=192.168.8.237:8030
+--sink-conf username=root
+--sink-conf password=doris@2023
+--sink-conf jdbc-url=jdbc:mysql://192.168.8.237:9030
+--sink-conf sink.label-prefix=label_suyh_cdap_mysql_debug
+--table-conf replication_num=1
